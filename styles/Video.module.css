@@ -32,7 +32,18 @@
     line-height: 120%;
 }
 
-@media (max-width: 1770px) {
+@media (max-width: 1800px) {
+    .title {
+        font-size: 110px;
+    }
+    .title span {
+        font-size: 100px;
+    }
+    .video {
+        padding-top: 300px;
+    }
+}
+@media (max-width: 1580px) {
     .title {
         font-size: 90px;
         letter-spacing: 5px;

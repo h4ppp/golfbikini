@@ -126,6 +126,47 @@ nav li.active a {
     color: #060606;
     line-height: 120%;
 }
+.custom__control {
+    border: 1px solid #9d9d9d !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(42px) !important;
+    height: 66px !important;
+    border-radius: 15px !important;
+}
+.custom__indicators {
+    display: none !important;
+}
+.custom__value-container {
+    height: 100% !important;
+    /*display: flex !important;
+    align-items: center !important;*/
+    padding: 0 !important;
+    width: 100% !important;
+}
+.custom__input-container {
+    position: static;
+}
+input.custom__input {
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding-left: 19px !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    grid-area: 1 !important;
+}
+.custom__placeholder {
+    color: #808080 !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    line-height: 120% !important;
+    padding-left: 19px !important;
+}
 .input-wrapper select {
     cursor: pointer;
     user-select: none;
@@ -365,8 +406,16 @@ nav li.active a {
     background-image: url("/img/close-modal.svg");
     background-repeat: no-repeat;
 }
+.custom__single-value {
+    padding-left: 19px !important;
+}
+@media (max-width: 1800px) {
+    .container {
+        width: 1500px;
+    }
+}
 
-@media (max-width: 1770px) {
+@media (max-width: 1580px) {
     .container {
         width: 1200px;
     }
@@ -419,6 +468,16 @@ nav li.active a {
         padding-left: 19px;
         font-size: 14px;
         border-radius: 10px;
+    }
+    .custom__control {
+        height: 44px !important;
+        border-radius: 10px !important;
+    }
+    .custom__placeholder {
+        font-size: 14px !important;
+    }
+    input.custom__input {
+        font-size: 14px !important;
     }
     .btn {
         height: 54px;

@@ -196,7 +196,7 @@
 .account {
     padding-bottom: 40px;
 }
-@media (max-width: 1770px) {
+@media (max-width: 1580px) {
     .btnPopup {
         right: 24px;
     }

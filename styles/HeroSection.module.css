@@ -145,8 +145,30 @@
 .socItem:hover {
     opacity: 0.8;
 }
+@media (max-width: 1800px) {
+    .title {
+        font-size: 110px;
+        letter-spacing: 9px;
+        line-height: 110px;
+        margin-bottom: 260px;
+    }
+    .title span {
+        font-size: 90px;
+        letter-spacing: 7px;
+        line-height: 90px;
+    }
+    .section {
+        padding-bottom: 120px;
+    }
+    .item {
+        width: 520px;
+    }
+    .block {
+        width: 380px;
+    }
+}
 
-@media (max-width: 1770px) {
+@media (max-width: 1580px) {
     .block {
         width: 100%;
         order: 0;

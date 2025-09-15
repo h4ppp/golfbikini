@@ -59,7 +59,12 @@
     box-shadow: none;
 }
 
-@media (max-width: 1770px) {
+@media (max-width: 1800px) {
+    .img {
+        left: 50%;
+    }
+}
+@media (max-width: 1580px) {
     .img {
         width: 1200px;
         left: calc(50% + 150px);

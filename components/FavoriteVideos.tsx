@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 //import Cookies from "js-cookie";
 import Image from "next/image";
 
@@ -24,9 +24,11 @@ export default function FavoriteVideos() {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore | null>(null);
     const [mainSwiper, setMainSwiper] = useState<SwiperCore | null>(null);
     const [favorites, setFavorites] = useState<number[]>([]);
-    const [loadingIds, setLoadingIds] = useState<number[]>([]); // для блокировки кнопок
+    const [loadingIds, setLoadingIds] = useState<number[]>([]);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [playingVideoId, setPlayingVideoId] = useState<number | null>(null);
     const router = useRouter();
+    const pathname = usePathname();
 
     useEffect(() => {
         (Fancybox.bind as any)("[data-fancybox]", {
@@ -122,7 +124,13 @@ export default function FavoriteVideos() {
                             className={`${styles.thumbSlide} ${
                                 index === activeIndex ? "active" : ""
                             }`}
-                            onClick={() => mainSwiper?.slideToLoop(index)}>
+                            onClick={() => {
+                                if (pathname !== "/video") {
+                                    router.push("/video");
+                                } else {
+                                    mainSwiper?.slideToLoop(index);
+                                }
+                            }}>
                             <div className={styles.thumbItem}>
                                 <img
                                     src={video.acf.thumb}
@@ -151,6 +159,18 @@ export default function FavoriteVideos() {
 
                         return (
                             <SwiperSlide key={video.id} className={styles.mainSlide}>
+                                {playingVideoId === video.id ? (
+                                    <video
+                                        src={video.acf.video}
+                                        controls
+                                        autoPlay
+                                        className={styles.videoPlayer}
+                                        width="100%"
+                                        height="100%"
+                                    />
+                                ) : (
+                                    ""
+                                )}
                                 <div className={styles.mainSlideItem}>
                                     <img
                                         src={video.acf.bg}
@@ -169,11 +189,9 @@ export default function FavoriteVideos() {
                                                 className={styles.description}
                                                 dangerouslySetInnerHTML={{ __html: video.acf.text }}
                                             />
-
-                                            <a
-                                                data-fancybox="gallery"
-                                                href={video.acf.video}
-                                                className={styles.playButton}></a>
+                                            <div
+                                                className={styles.playButton}
+                                                onClick={() => setPlayingVideoId(video.id)}></div>
                                         </div>
                                     </div>
                                     <div

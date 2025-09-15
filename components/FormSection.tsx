@@ -3,6 +3,8 @@
 import styles from "../styles/FormSection.module.css";
 import Image from "next/image";
 import { useState } from "react";
+import Select from "react-select";
+import { countries } from "../lib/countries";
 
 export default function FormSection() {
     const [formData, setFormData] = useState({
@@ -12,6 +14,11 @@ export default function FormSection() {
         location: "",
         description: "",
     });
+    const roleOptions = [
+        { value: "Player", label: "Player" },
+        { value: "Organizer", label: "Organizer" },
+        { value: "Sponsor", label: "Sponsor" },
+    ];
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState("");
@@ -113,15 +120,23 @@ export default function FormSection() {
                             <div className="input">
                                 <div className="input-title">Select your role (Optional)</div>
                                 <div className="input-wrapper input-arrow">
-                                    <select
-                                        name="role"
-                                        value={formData.role}
-                                        onChange={handleChange}>
-                                        <option value="">What's your role?</option>
-                                        <option value="Player">Player</option>
-                                        <option value="Organizer">Organizer</option>
-                                        <option value="Sponsor">Sponsor</option>
-                                    </select>
+                                    <Select
+                                        options={roleOptions}
+                                        placeholder="What's your role?"
+                                        value={
+                                            roleOptions.find(
+                                                (option) => option.value === formData.role,
+                                            ) || null
+                                        }
+                                        onChange={(option) =>
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                role: option ? option.value : "",
+                                            }))
+                                        }
+                                        isClearable
+                                        classNamePrefix="custom"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -129,15 +144,22 @@ export default function FormSection() {
                             <div className="input">
                                 <div className="input-title">Select your location (Optional)</div>
                                 <div className="input-wrapper input-arrow">
-                                    <select
-                                        name="location"
-                                        value={formData.location}
-                                        onChange={handleChange}>
-                                        <option value="">Where are you based?</option>
-                                        <option value="USA">USA</option>
-                                        <option value="Europe">Europe</option>
-                                        <option value="Asia">Asia</option>
-                                    </select>
+                                    <Select
+                                        options={countries}
+                                        placeholder="Where are you based?"
+                                        value={
+                                            countries.find((c) => c.value === formData.location) ||
+                                            null
+                                        }
+                                        classNamePrefix="custom"
+                                        onChange={(option) =>
+                                            setFormData((prev) => ({
+                                                ...prev,
+                                                location: option ? option.value : "",
+                                            }))
+                                        }
+                                        isClearable
+                                    />
                                 </div>
                             </div>
                         </div>

@@ -140,7 +140,16 @@
     line-height: 120%;
 }
 
-@media (max-width: 1770px) {
+@media (max-width: 1800px) {
+    .arrow {
+        width: 380px;
+        font-size: 24px;
+    }
+    .title {
+        font-size: 112px;
+    }
+}
+@media (max-width: 1580px) {
     .arrow {
         width: 300px;
         font-size: 20px;

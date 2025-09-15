@@ -59,7 +59,12 @@
     max-width: 100%;
 }
 
-@media (max-width: 1770px) {
+@media (max-width: 1800px) {
+    .img {
+        left: -70px;
+    }
+}
+@media (max-width: 1580px) {
     .img {
         max-width: 100%;
         left: 0;

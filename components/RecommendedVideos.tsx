@@ -35,6 +35,7 @@ export default function RecommendedVideos({
     const [mainSwiper, setMainSwiper] = useState<SwiperCore | null>(null);
     const [favorites, setFavorites] = useState<number[]>([]);
     const [loadingIds, setLoadingIds] = useState<number[]>([]);
+    const [playingVideoId, setPlayingVideoId] = useState<number | null>(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -81,11 +82,13 @@ export default function RecommendedVideos({
 
     // фильтрация видео в зависимости от режима
     const filteredVideos = videos.filter((video) => {
+        const checkbox = (video as any)?.acf?.rec?.[0] ?? null;
+
         if (favoriteMode) {
             if (!favoriteVideos || favoriteVideos.length === 0) return false;
             return favoriteVideos.includes(video.id);
         } else {
-            return (video as any)?.rec?.acf?.includes("yes");
+            return checkbox === "yes";
         }
     });
 
@@ -108,6 +111,18 @@ export default function RecommendedVideos({
 
                         return (
                             <SwiperSlide key={video.id} className={styles.recSlide}>
+                                {playingVideoId === video.id ? (
+                                    <video
+                                        src={video.acf.video}
+                                        controls
+                                        autoPlay
+                                        className={styles.videoPlayer}
+                                        width="100%"
+                                        height="100%"
+                                    />
+                                ) : (
+                                    ""
+                                )}
                                 <div className={styles.recSliderItem}>
                                     <img
                                         src={video.acf.bg}
@@ -127,10 +142,9 @@ export default function RecommendedVideos({
                                             />
                                         </div>
 
-                                        <a
-                                            data-fancybox="gallery"
-                                            href={video.acf.video}
-                                            className={styles.playButton}></a>
+                                        <div
+                                            className={styles.playButton}
+                                            onClick={() => setPlayingVideoId(video.id)}></div>
                                     </div>
                                     <div
                                         className={`${styles.btnFavorite} ${
