@@ -320,6 +320,11 @@ export default function AccountPage() {
                 <div className="container">
                     <div className={styles.accountBold}>Favorite Players </div>
                 </div>
+                <div className="sliderWrapper">
+                    <div className="container">
+                        <PlayersSlider />
+                    </div>
+                </div>
             </div>
 
             <Footer />
