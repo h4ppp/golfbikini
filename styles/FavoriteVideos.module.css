@@ -50,6 +50,11 @@
     object-fit: cover;
     transition: all 0.4s;
     filter: grayscale(1);
+    transition: all 0.4s;
+}
+.thumbItem:hover img {
+    filter: none;
+    transform: scale(1.02);
 }
 .thumbItem::before {
     content: "";
@@ -58,9 +63,15 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 90px;
+    height: 120px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(6px);
+    -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-image: linear-gradient(to top, black 70%, transparent 100%);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
     z-index: 2;
 }
 .mainSlideItem {
@@ -91,8 +102,24 @@
     align-items: center;
     height: 100%;
     padding: 45px 87px 45px 45px;
+    /*background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
+    backdrop-filter: blur(4px);*/
+}
+.mainItemWrapper::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 115%;
+    height: 100%;
     background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
     backdrop-filter: blur(4px);
+    -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
 }
 .btnFavorite {
     text-decoration: none;
@@ -180,13 +207,13 @@
 
 @keyframes pulse {
     0% {
-        transform: scale(1);
+        transform: scale(1) translateY(-50%);
     }
     70% {
-        transform: scale(1.05);
+        transform: scale(1.05) translateY(-50%);
     }
     100% {
-        transform: scale(1);
+        transform: scale(1) translateY(-50%);
     }
 }
 .desktop {
@@ -271,14 +298,35 @@
     align-items: flex-end;
     height: 404px;
 }
+.recSliderBox {
+    position: relative;
+    z-index: 3;
+}
 .recSliderWrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
-    backdrop-filter: blur(10px);
+    /*background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+    backdrop-filter: blur(10px);*/
     padding: 25px 32px 32px;
     width: 100%;
+    position: relative;
+}
+.recSliderWrapper::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 140%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-mask-image: linear-gradient(to top, black 50%, transparent 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-image: linear-gradient(to top, black 50%, transparent 100%);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
 }
 .recSliderTitle {
     color: #fff;
@@ -294,6 +342,12 @@
     font-size: 18px;
     font-weight: 400;
     line-height: 120%;
+}
+.category,
+.videoTitle,
+.description {
+    position: relative;
+    z-index: 3;
 }
 
 @media (max-width: 1800px) {
@@ -313,6 +367,14 @@
     .mainItemWrapper {
         padding: 40px 120px 40px 40px;
         width: 550px;
+    }
+    .mainItemWrapper::before {
+        width: 100%;
+        top: auto;
+        bottom: 0;
+        height: 115%;
+        -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%);
+        mask-image: linear-gradient(to top, black 70%, transparent 100%);
     }
     .playButton {
         width: 160px;
@@ -364,7 +426,7 @@
         height: 91px;
     }
     .thumbItem::before {
-        height: 40px;
+        height: 55px;
     }
     .thumbSlide {
         width: 177px;
@@ -416,6 +478,17 @@
         top: -16px;
         right: -5px;
         transform: none;
+    }
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        70% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
     }
     .description {
         width: calc(100% - 47px);
@@ -485,8 +558,11 @@
         line-height: normal;
         margin-bottom: 12px;
     }
-    .recSliderWrapper {
+    /*.recSliderWrapper {
         backdrop-filter: blur(4px);
+    }*/
+    .recSliderWrapper::before {
+        height: 150%;
     }
 }
 @media (max-width: 767px) {

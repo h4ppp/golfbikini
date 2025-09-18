@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { useEvents } from "../lib/useEvents";
@@ -65,9 +66,9 @@ export default function EventsSection() {
                     {events.map((event) => (
                         <SwiperSlide key={event.id} className={styles.eventSlider}>
                             <div className={styles.eventItem}>
-                                <div className={styles.eventAfter}>
+                                <Link className={styles.eventAfter} href="/soon">
                                     <img src="/img/arrow.svg" alt="arrow" width={93} height={93} />
-                                </div>
+                                </Link>
                                 {(event as any)?.img && (
                                     <img
                                         src={(event as any).img}

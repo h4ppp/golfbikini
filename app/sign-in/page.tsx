@@ -128,7 +128,8 @@ export default function SignInPage() {
                         {error && <div className="error">{error}</div>}
                         <div className="center">
                             <div className="form-link">
-                                <Link href="/forgot-password">Forgot your password?</Link>
+                                Don’t have an account?
+                                <Link href="/create-account">Sign Up</Link>
                             </div>
                         </div>
                         <div className={styles.soc}>

@@ -196,6 +196,32 @@
 .account {
     padding-bottom: 40px;
 }
+
+.accountBottom {
+    margin-top: -70px;
+    padding-bottom: 120px;
+}
+.playerSlideImg {
+    width: 100%;
+    height: auto;
+}
+.playerSlide {
+    width: 404px !important;
+    min-width: 404px !important;
+}
+.playerSlider {
+    position: relative;
+}
+.playerSlider::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    right: 0;
+    height: 100%;
+    z-index: 3;
+    background: linear-gradient(270deg, #fff 27.59%, rgba(255, 255, 255, 0) 100%);
+}
+
 @media (max-width: 1580px) {
     .btnPopup {
         right: 24px;
@@ -232,6 +258,10 @@
     .wrapper {
         padding: 15px 11px;
         border-radius: 20px;
+    }
+    .accountBottom {
+        padding-bottom: 20px;
+        margin-top: 0;
     }
     .accountBold {
         font-size: 26px;
@@ -310,6 +340,10 @@
         transform: none;
         background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, #000 50%, rgba(0, 0, 0, 0) 100%);
     }
+    .playerSlide {
+        width: 345px !important;
+        min-width: 345px !important;
+    }
 }
 
 @media (max-width: 767px) {
@@ -319,6 +353,15 @@
     }
 }
 
+@media (max-width: 576px) {
+    .playerSlide {
+        width: calc(100vw - 30px) !important;
+        min-width: calc(100vw - 30px) !important;
+    }
+    .playerSlider::before {
+        display: none;
+    }
+}
 @media (max-width: 360px) {
     .accountBold {
         font-size: 24px;

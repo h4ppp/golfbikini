@@ -16,6 +16,10 @@
     display: flex;
     align-items: center;
 }
+.hide {
+    opacity: 0;
+    pointer-events: none;
+}
 .logo {
     display: inline-flex;
     width: 149px;
@@ -171,7 +175,7 @@
         height: 32px;
     }
     .nav ul li a {
-        font-size: 12px;
+        font-size: 11px;
     }
     .nav ul li.close::before {
         width: 12px;
@@ -189,6 +193,9 @@
     .wrapper {
         padding: 16px;
         border-radius: 15px;
+    }
+    .menu .hide {
+        display: none;
     }
     .header {
         padding: 15px 0;

@@ -1,16 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
-//import Cookies from "js-cookie";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { useVideos } from "../lib/useVideos";
 
 import "swiper/css";
-//import "swiper/css/thumbs";
 
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
@@ -29,42 +28,33 @@ export default function FavoriteVideos() {
     const [playingVideoId, setPlayingVideoId] = useState<number | null>(null);
     const router = useRouter();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
         (Fancybox.bind as any)("[data-fancybox]", {
             toolbar: false,
             video: { autoStart: true },
         });
-
         return () => {
             Fancybox.destroy();
         };
     }, []);
 
-    // Получаем фавориты пользователя
-    //useEffect(() => {
-    //    const fetchFavorites = async () => {
-    //        const token = Cookies.get("token");
-    //        if (!token) return;
-
-    //        try {
-    //            const res = await fetch("/api/favorites", { credentials: "include" });
-    //            if (res.ok) {
-    //                const data = await res.json();
-    //                setFavorites(data.favorites || []);
-    //            }
-    //        } catch (err) {
-    //            console.error("Failed to fetch favorites", err);
-    //        }
-    //    };
-    //    fetchFavorites();
-    //}, []);
+    useEffect(() => {
+        if (typeof window !== "undefined" && pathname === "/video" && mainSwiper) {
+            const indexParam = searchParams.get("index");
+            if (indexParam) {
+                const idx = parseInt(indexParam, 10);
+                if (!isNaN(idx)) {
+                    mainSwiper.slideToLoop(idx);
+                }
+            }
+        }
+    }, [pathname, searchParams, mainSwiper]);
 
     const toggleFavorite = async (videoId: number) => {
-        if (loadingIds.includes(videoId)) return; // блокировка кнопки
+        if (loadingIds.includes(videoId)) return;
         setLoadingIds((prev) => [...prev, videoId]);
-        console.log(videoId);
-
         try {
             const res = await fetch("/api/favorites", {
                 method: "POST",
@@ -72,12 +62,10 @@ export default function FavoriteVideos() {
                 body: JSON.stringify({ videoId }),
                 credentials: "include",
             });
-
             if (res.status === 401) {
                 router.push("/sign-in");
                 return;
             }
-
             if (res.ok) {
                 const data = await res.json();
                 setFavorites(data.favorites || []);
@@ -126,7 +114,7 @@ export default function FavoriteVideos() {
                             }`}
                             onClick={() => {
                                 if (pathname !== "/video") {
-                                    router.push("/video");
+                                    router.push(`/video?index=${index}`);
                                 } else {
                                     mainSwiper?.slideToLoop(index);
                                 }
@@ -156,7 +144,6 @@ export default function FavoriteVideos() {
                     {videos.map((video) => {
                         const isFavorite = favorites.includes(video.id);
                         const isLoading = loadingIds.includes(video.id);
-
                         return (
                             <SwiperSlide key={video.id} className={styles.mainSlide}>
                                 {playingVideoId === video.id ? (

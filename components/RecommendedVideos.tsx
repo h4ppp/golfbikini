@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { useVideos } from "../lib/useVideos";
 
 import "swiper/css";
-//import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/pagination";
 
@@ -23,7 +23,7 @@ SwiperCore.use([]);
 interface RecommendedVideosProps {
     sectionTitle?: string;
     favoriteMode?: boolean;
-    favoriteVideos?: number[]; // массив id видео
+    favoriteVideos?: number[];
 }
 
 export default function RecommendedVideos({
@@ -39,11 +39,12 @@ export default function RecommendedVideos({
     const router = useRouter();
 
     useEffect(() => {
-        (Fancybox.bind as any)("[data-fancybox]", {
-            Toolbar: { display: ["close"] },
-            video: { autoStart: true },
-        });
-
+        if (typeof window !== "undefined") {
+            (Fancybox.bind as any)("[data-fancybox]", {
+                Toolbar: { display: ["close"] },
+                video: { autoStart: true },
+            });
+        }
         return () => {
             Fancybox.destroy();
         };
@@ -80,7 +81,6 @@ export default function RecommendedVideos({
         }
     };
 
-    // фильтрация видео в зависимости от режима
     const filteredVideos = videos.filter((video) => {
         const checkbox = (video as any)?.acf?.rec?.[0] ?? null;
 

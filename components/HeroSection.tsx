@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import styles from "../styles/HeroSection.module.css";
 import Image from "next/image";
 import { usePosts } from "../lib/usePosts";
@@ -63,6 +64,9 @@ export default function FAQSection() {
                         <div className={styles.list}></div>
                         {mainList.map((item: any, index: number) => (
                             <div className={styles.item} key={index}>
+                                <Link className={styles.itemArrow} href="/soon">
+                                    {" "}
+                                </Link>
                                 <div className={styles.images}>
                                     {item.child_repeater.map((img: any, index: number) => (
                                         <img

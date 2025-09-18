@@ -1,23 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import styles from "../../styles/Auth.module.css";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import RecommendedVideos from "@/components/RecommendedVideos";
+import PlayersSlider from "@/components/PlayersSlider";
 
-interface Video {
-    url: string;
-}
+const RecommendedVideos = dynamic(() => import("../../components/RecommendedVideos"), {
+    ssr: false,
+});
+
 interface ProfileData {
     email: string;
     first_name: string;
     second_name: string;
-    favorite_videos: string | null; // может быть JSON-строкой
+    favorite_videos: string | null;
 }
 
 export default function AccountPage() {
@@ -57,11 +57,8 @@ export default function AccountPage() {
         router.push("/sign-in");
     };
 
-    const handleTogglePassword = () => {
-        setShowPassword(!showPassword);
-    };
+    const handleTogglePassword = () => setShowPassword(!showPassword);
 
-    // Изменение имени
     const handleNameSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const res = await fetch("/api/profile/edit-name", {
@@ -79,7 +76,6 @@ export default function AccountPage() {
         }
     };
 
-    // Изменение пароля
     const handlePasswordSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (passwordForm.newPassword !== passwordForm.confirmPassword) {
@@ -102,17 +98,12 @@ export default function AccountPage() {
         }
     };
 
-    // безопасно парсим favorite_videos в массив чисел
     const favoriteVideoIds = useMemo(() => {
         if (!data?.favorite_videos) return [];
-
         try {
             const parsed = JSON.parse(data.favorite_videos);
-
             if (Array.isArray(parsed)) return parsed.map((id) => Number(id));
-
             if (!isNaN(Number(parsed))) return [Number(parsed)];
-
             return [];
         } catch {
             return data.favorite_videos
@@ -122,8 +113,7 @@ export default function AccountPage() {
         }
     }, [data?.favorite_videos]);
 
-    let name = "";
-    data ? (name = data.first_name) : "";
+    const name = data?.first_name || "";
 
     return (
         <>
@@ -326,6 +316,11 @@ export default function AccountPage() {
                     favoriteVideos={favoriteVideoIds}
                 />
             )}
+            <div className={styles.accountBottom}>
+                <div className="container">
+                    <div className={styles.accountBold}>Favorite Players </div>
+                </div>
+            </div>
 
             <Footer />
         </>

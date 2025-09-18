@@ -1,8 +1,16 @@
+"use client"; // делаем всю страницу клиентской
+
+import dynamic from "next/dynamic";
 import Header from "../../components/Header";
-import FavoriteVideos from "../../components/FavoriteVideos";
-import RecommendedVideos from "../../components/RecommendedVideos";
 import Footer from "../../components/Footer";
 import styles from "../../styles/Video.module.css";
+
+// Динамический импорт FavoriteVideos без SSR
+const FavoriteVideos = dynamic(() => import("../../components/FavoriteVideos"), { ssr: false });
+
+const RecommendedVideos = dynamic(() => import("../../components/RecommendedVideos"), {
+    ssr: false,
+});
 
 export default function VideoPage() {
     return (
@@ -21,9 +29,13 @@ export default function VideoPage() {
                     </div>
                 </div>
             </section>
+
             <section className="section"></section>
+
             <FavoriteVideos />
-            <RecommendedVideos favoriteMode={false} sectionTitle="Recommended Video " />
+
+            <RecommendedVideos favoriteMode={false} sectionTitle="Recommended Video" />
+
             <Footer />
         </>
     );

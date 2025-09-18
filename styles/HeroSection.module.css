@@ -65,8 +65,7 @@
     overflow: hidden;
     align-self: stretch;
 }
-.item::before {
-    content: "";
+.itemArrow {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -75,6 +74,12 @@
     background-image: url("/img/main-arrow.svg");
     background-repeat: no-repeat;
     z-index: 4;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.4s;
+}
+.itemArrow:hover {
+    opacity: 0.8;
 }
 .item::after {
     content: "";
@@ -246,7 +251,7 @@
     .itemText {
         display: none;
     }
-    .item::before {
+    .itemArrow {
         width: 50px;
         height: 50px;
         right: 0;

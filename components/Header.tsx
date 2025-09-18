@@ -85,15 +85,28 @@ export default function Header() {
                     <nav className={`${styles.nav} ${menuOpen ? styles.open : ""}`}>
                         {renderMenu()}
                     </nav>
-                    <Link href="/sign-in" className={styles.btn}>
-                        <span>Login</span>
-                        <Image
-                            src="/img/header-btn-arrow.svg"
-                            alt="button arrow"
-                            width={24}
-                            height={24}
-                        />
-                    </Link>
+                    {pathname !== "/account" ? (
+                        <Link href="/sign-in" className={styles.btn}>
+                            <span>Login</span>
+                            <Image
+                                src="/img/header-btn-arrow.svg"
+                                alt="button arrow"
+                                width={24}
+                                height={24}
+                            />
+                        </Link>
+                    ) : (
+                        <Link href="/sign-in" className={`${styles.hide} ${styles.btn}`}>
+                            <span>Login</span>
+                            <Image
+                                src="/img/header-btn-arrow.svg"
+                                alt="button arrow"
+                                width={24}
+                                height={24}
+                            />
+                        </Link>
+                    )}
+
                     {renderSocials()}
                 </div>
             </div>
@@ -105,15 +118,27 @@ export default function Header() {
                             <Image src="/img/logo.svg" alt="Logo" width={149} height={57} />
                         </Link>
                         <nav className={styles.nav}>{renderMenu()}</nav>
-                        <Link href="/sign-in" className={styles.btn}>
-                            <span>Login</span>
-                            <Image
-                                src="/img/header-btn-arrow.svg"
-                                alt="button arrow"
-                                width={24}
-                                height={24}
-                            />
-                        </Link>
+                        {pathname !== "/account" ? (
+                            <Link href="/sign-in" className={styles.btn}>
+                                <span>Login</span>
+                                <Image
+                                    src="/img/header-btn-arrow.svg"
+                                    alt="button arrow"
+                                    width={24}
+                                    height={24}
+                                />
+                            </Link>
+                        ) : (
+                            <Link href="/sign-in" className={`${styles.hide} ${styles.btn}`}>
+                                <span>Login</span>
+                                <Image
+                                    src="/img/header-btn-arrow.svg"
+                                    alt="button arrow"
+                                    width={24}
+                                    height={24}
+                                />
+                            </Link>
+                        )}
                         <div className={styles.burger} onClick={() => setMenuOpen(!menuOpen)}></div>
                     </div>
                 </div>
