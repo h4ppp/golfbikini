@@ -8,14 +8,16 @@ import { useEvents } from "../lib/useEvents";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 
+import { Pagination } from "swiper/modules";
+
+// Импортируем все необходимые стили
 import "swiper/css";
-//import "swiper/css/navigation";
-//import "swiper/css/thumbs";
 import "swiper/css/pagination";
 
 import styles from "../styles/EventsSection.module.css";
 
-SwiperCore.use([]);
+// Подключаем модуль пагинации к SwiperCore
+SwiperCore.use([Pagination]);
 
 export default function EventsSection() {
     const [mainSwiper, setMainSwiper] = useState<SwiperCore | null>(null);

@@ -148,6 +148,20 @@
 .menuOverlay {
     display: none;
 }
+.profile {
+    display: flex;
+    align-items: center;
+    color: #060606;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 120%;
+}
+.profile img {
+    width: 45px;
+    min-width: 45px;
+    height: auto;
+    margin-right: 9px;
+}
 
 @media (max-width: 1580px) {
     .nav {
@@ -174,6 +188,12 @@
         margin: 0 6px;
         height: 32px;
     }
+    .profile img {
+        display: none;
+    }
+    .profile {
+        margin-left: auto;
+    }
     .nav ul li a {
         font-size: 11px;
     }
@@ -193,6 +213,18 @@
     .wrapper {
         padding: 16px;
         border-radius: 15px;
+    }
+    .menu .profile img {
+        display: block;
+    }
+    .header .profile {
+        width: 0;
+        overflow: hidden;
+    }
+    .menu .profile {
+        display: flex;
+        margin-bottom: 24px;
+        justify-content: center;
     }
     .menu .hide {
         display: none;

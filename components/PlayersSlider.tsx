@@ -1,11 +1,17 @@
 "use client";
 
 import Image from "next/image";
+
 import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore from "swiper";
+
+import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/thumbs";
 import "swiper/css/pagination";
+
+SwiperCore.use([Pagination]);
 
 import styles from "../styles/Auth.module.css";
 

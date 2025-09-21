@@ -47,12 +47,19 @@
 }
 .arrow img {
     margin-left: 10px;
+    transition: all 0.4s;
 }
 .prev img {
     order: -1;
     margin-left: 0;
     margin-right: 10px;
     transform: rotate(180deg);
+}
+.next:hover img {
+    transform: translateX(5px);
+}
+.prev:hover img {
+    transform: translateX(-5px) rotate(180deg);
 }
 .eventItem {
     padding-top: 207px;

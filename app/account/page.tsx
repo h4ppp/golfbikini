@@ -135,7 +135,9 @@ export default function AccountPage() {
                                 </div>
                                 <div className={styles.accountBlock}>
                                     <div className={styles.accountItemTitle}>Name:</div>
-                                    <div className={styles.accountText}>{data.first_name}</div>
+                                    <div className={styles.accountText}>
+                                        {data.first_name} {data.second_name}
+                                    </div>
                                     <button
                                         className={styles.btnPopup}
                                         onClick={() => setShowEditName(true)}>
@@ -144,7 +146,7 @@ export default function AccountPage() {
                                 </div>
                                 <div className={styles.accountBlock}>
                                     <div className={styles.accountItemTitle}>Password:</div>
-                                    <div className={styles.accountText}>{data.second_name}</div>
+                                    <div className={styles.accountText}>******</div>
                                     <button
                                         className={styles.btnPopup}
                                         onClick={() => setShowChangePassword(true)}>

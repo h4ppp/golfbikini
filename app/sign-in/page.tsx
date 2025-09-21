@@ -128,8 +128,7 @@ export default function SignInPage() {
                         {error && <div className="error">{error}</div>}
                         <div className="center">
                             <div className="form-link">
-                                Don’t have an account?
-                                <Link href="/create-account">Sign Up</Link>
+                                <Link href="/forgot-password"> Forgot your password?</Link>
                             </div>
                         </div>
                         <div className={styles.soc}>
@@ -143,6 +142,12 @@ export default function SignInPage() {
                             <a href="#" className={styles.socItem}>
                                 <Image src="/img/reg-3.svg" alt="apple" width={32} height={32} />
                             </a>
+                        </div>
+                        <div className="center bottom-block-sign">
+                            <div className="form-link">
+                                Don't have an account?
+                                <Link href="/create-account">Sign Up</Link>
+                            </div>
                         </div>
                     </form>
                 </div>

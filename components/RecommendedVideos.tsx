@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import dynamic from "next/dynamic";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { useVideos } from "../lib/useVideos";
+
+import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/thumbs";
@@ -18,7 +18,7 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 import styles from "../styles/FavoriteVideos.module.css";
 
-SwiperCore.use([]);
+SwiperCore.use([Pagination]);
 
 interface RecommendedVideosProps {
     sectionTitle?: string;
@@ -32,12 +32,11 @@ export default function RecommendedVideos({
     favoriteVideos = [],
 }: RecommendedVideosProps) {
     const { data: videos = [] } = useVideos();
-    const [mainSwiper, setMainSwiper] = useState<SwiperCore | null>(null);
     const [favorites, setFavorites] = useState<number[]>([]);
-    const [loadingIds, setLoadingIds] = useState<number[]>([]);
     const [playingVideoId, setPlayingVideoId] = useState<number | null>(null);
     const router = useRouter();
 
+    // Fancybox init
     useEffect(() => {
         if (typeof window !== "undefined") {
             (Fancybox.bind as any)("[data-fancybox]", {
@@ -46,38 +45,52 @@ export default function RecommendedVideos({
             });
         }
         return () => {
-            Fancybox.destroy();
+            try {
+                Fancybox.destroy();
+            } catch {}
         };
     }, []);
 
-    const toggleFavorite = async (videoId: number) => {
-        if (loadingIds.includes(videoId)) return;
-        setLoadingIds((prev) => [...prev, videoId]);
+    // Получаем избранное при монтировании
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            try {
+                const res = await fetch("/api/favorites", {
+                    method: "GET",
+                    credentials: "include",
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setFavorites(data.favorites || []);
+                }
+            } catch (err) {
+                console.error("fetchFavorites error:", err);
+            }
+        };
+        fetchFavorites();
+    }, []);
 
+    // Простой toggle
+    const toggleFavorite = async (videoId: number) => {
+        // Сразу локально переключаем
+        setFavorites((prev) =>
+            prev.includes(videoId) ? prev.filter((id) => id !== videoId) : [...prev, videoId],
+        );
+
+        // Потом вызываем сервер, просто сохраняем
         try {
             const res = await fetch("/api/favorites", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ videoId }),
+                body: JSON.stringify({ videoId }), // обязательно число
                 credentials: "include",
             });
 
             if (res.status === 401) {
                 router.push("/sign-in");
-                return;
-            }
-
-            if (res.ok) {
-                const data = await res.json();
-                setFavorites(data.favorites || []);
-            } else {
-                const data = await res.json();
-                console.error("Failed to update favorites", data);
             }
         } catch (err) {
             console.error("toggleFavorite error:", err);
-        } finally {
-            setLoadingIds((prev) => prev.filter((id) => id !== videoId));
         }
     };
 
@@ -99,7 +112,6 @@ export default function RecommendedVideos({
             <div className="container">
                 <h2 className={styles.redTitle}>{sectionTitle}</h2>
                 <Swiper
-                    onSwiper={setMainSwiper}
                     spaceBetween={10}
                     loop={true}
                     slidesPerView={"auto"}
@@ -107,7 +119,6 @@ export default function RecommendedVideos({
                     className={styles.recSlider}>
                     {filteredVideos.map((video) => {
                         const isFavorite = favorites.includes(video.id);
-                        const isLoading = loadingIds.includes(video.id);
 
                         return (
                             <SwiperSlide key={video.id} className={styles.recSlide}>
@@ -120,9 +131,8 @@ export default function RecommendedVideos({
                                         width="100%"
                                         height="100%"
                                     />
-                                ) : (
-                                    ""
-                                )}
+                                ) : null}
+
                                 <div className={styles.recSliderItem}>
                                     <img
                                         src={video.acf.bg}
@@ -144,15 +154,16 @@ export default function RecommendedVideos({
 
                                         <div
                                             className={styles.playButton}
-                                            onClick={() => setPlayingVideoId(video.id)}></div>
+                                            onClick={() => setPlayingVideoId(video.id)}
+                                        />
                                     </div>
+
                                     <div
                                         className={`${styles.btnFavorite} ${
                                             isFavorite ? styles.active : ""
-                                        } ${isLoading ? styles.disabled : ""}`}
-                                        onClick={() => toggleFavorite(video.id)}>
-                                        {isFavorite ? "" : ""}
-                                    </div>
+                                        }`}
+                                        onClick={() => toggleFavorite(video.id)}
+                                    />
                                 </div>
                             </SwiperSlide>
                         );

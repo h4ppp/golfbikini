@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../../styles/Auth.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import Select from "react-select";
+import { countries } from "../../lib/countries";
 
 export default function CreateAccountPage() {
     const router = useRouter();
@@ -19,11 +21,13 @@ export default function CreateAccountPage() {
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
-    ) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
+    };
+
+    const handleCountryChange = (option: any) => {
+        setForm({ ...form, country: option ? option.value : "" });
     };
 
     const validate = () => {
@@ -55,7 +59,6 @@ export default function CreateAccountPage() {
         const data = await res.json();
 
         if (res.ok) {
-            // Успешная регистрация → перенаправляем на login
             router.push("/sign-in?registered=1");
         } else {
             setError(data.error || "Registration failed");
@@ -71,7 +74,7 @@ export default function CreateAccountPage() {
             <div className="container">
                 <div className={styles.wrapper}>
                     <Link href="/" className={styles.logo}>
-                        <Image src="/img/logo.svg" alt="Logo" width={177} height={68} />{" "}
+                        <Image src="/img/logo.svg" alt="Logo" width={177} height={68} />
                     </Link>
                     <h1 className={styles.title}>CREATE ACCOUNT</h1>
                     <p className={styles.subtitle}>
@@ -157,26 +160,27 @@ export default function CreateAccountPage() {
                                 </div>
                             </div>
                         </div>
+
                         <div className="input mt0">
                             <div className="input-title">Select Country*</div>
                             <div className="input-wrapper input-arrow">
-                                <select name="country" value={form.country} onChange={handleChange}>
-                                    <option value="" disabled>
-                                        Select Country*
-                                    </option>
-                                    <option value="us">United States</option>
-                                    <option value="de">Germany</option>
-                                    <option value="fr">France</option>
-                                    <option value="ru">Russia</option>
-                                    <option value="pl">Poland</option>
-                                </select>
+                                <Select
+                                    options={countries}
+                                    placeholder="Select your country*"
+                                    value={countries.find((c) => c.value === form.country) || null}
+                                    onChange={handleCountryChange}
+                                    isClearable
+                                    classNamePrefix="custom"
+                                />
                             </div>
                         </div>
+
                         <div className={styles.btnMt}></div>
                         <button type="submit" className="btn">
                             <span>Submit</span>
                         </button>
                         {error && <div className="error">{error}</div>}
+
                         <div className="center">
                             <div className="form-link">
                                 Already have an account?
@@ -186,13 +190,13 @@ export default function CreateAccountPage() {
                         <div className={styles.soc}>
                             <div className={styles.socTitle}>Or sign in with</div>
                             <a href="#" className={styles.socItem}>
-                                <Image src="/img/reg-1.svg" alt="facebook" width={32} height={32} />{" "}
+                                <Image src="/img/reg-1.svg" alt="facebook" width={32} height={32} />
                             </a>
                             <a href="#" className={styles.socItem}>
-                                <Image src="/img/reg-2.svg" alt="google" width={32} height={32} />{" "}
+                                <Image src="/img/reg-2.svg" alt="google" width={32} height={32} />
                             </a>
                             <a href="#" className={styles.socItem}>
-                                <Image src="/img/reg-3.svg" alt="apple" width={32} height={32} />{" "}
+                                <Image src="/img/reg-3.svg" alt="apple" width={32} height={32} />
                             </a>
                         </div>
                     </form>

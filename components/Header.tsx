@@ -2,13 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "../styles/Header.module.css";
 import { usePosts } from "../lib/usePosts";
 
+interface ProfileData {
+    email: string;
+    first_name: string;
+    second_name: string;
+}
+
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [profile, setProfile] = useState<ProfileData | null>(null);
     const pathname = usePathname();
     const { data } = usePosts();
 
@@ -31,6 +38,18 @@ export default function Header() {
         { href: "/#events", label: "Events", hash: "#events" },
         { href: "/#faq", label: "FAQs", hash: "#faq" },
     ];
+
+    useEffect(() => {
+        fetch("/api/profile")
+            .then((res) => {
+                if (res.status === 200) return res.json();
+                return null;
+            })
+            .then((d) => {
+                if (d) setProfile(d);
+            })
+            .catch(() => {});
+    }, []);
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
         if (pathname === "/") {
@@ -85,18 +104,17 @@ export default function Header() {
                     <nav className={`${styles.nav} ${menuOpen ? styles.open : ""}`}>
                         {renderMenu()}
                     </nav>
-                    {pathname !== "/account" ? (
-                        <Link href="/sign-in" className={styles.btn}>
-                            <span>Login</span>
-                            <Image
-                                src="/img/header-btn-arrow.svg"
-                                alt="button arrow"
-                                width={24}
-                                height={24}
-                            />
-                        </Link>
+
+                    {pathname == "/account" ? (
+                        <div className={styles.profile}>
+                            <img src="/img/profile.png" alt="" />
+                            <p>
+                                {profile?.first_name} <br />
+                                {profile?.second_name}
+                            </p>
+                        </div>
                     ) : (
-                        <Link href="/sign-in" className={`${styles.hide} ${styles.btn}`}>
+                        <Link href="/sign-in" className={styles.btn}>
                             <span>Login</span>
                             <Image
                                 src="/img/header-btn-arrow.svg"
@@ -118,18 +136,16 @@ export default function Header() {
                             <Image src="/img/logo.svg" alt="Logo" width={149} height={57} />
                         </Link>
                         <nav className={styles.nav}>{renderMenu()}</nav>
-                        {pathname !== "/account" ? (
-                            <Link href="/sign-in" className={styles.btn}>
-                                <span>Login</span>
-                                <Image
-                                    src="/img/header-btn-arrow.svg"
-                                    alt="button arrow"
-                                    width={24}
-                                    height={24}
-                                />
-                            </Link>
+                        {pathname == "/account" ? (
+                            <div className={styles.profile}>
+                                <img src="/img/profile.png" alt="" />
+                                <p>
+                                    {profile?.first_name} <br />
+                                    {profile?.second_name}
+                                </p>
+                            </div>
                         ) : (
-                            <Link href="/sign-in" className={`${styles.hide} ${styles.btn}`}>
+                            <Link href="/sign-in" className={styles.btn}>
                                 <span>Login</span>
                                 <Image
                                     src="/img/header-btn-arrow.svg"
