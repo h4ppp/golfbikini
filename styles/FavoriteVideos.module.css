@@ -358,8 +358,8 @@
 }
 @media (max-width: 1580px) {
     .thumbSlide {
-        width: 295px;
-        min-width: 295px;
+        width: 235px;
+        min-width: 235px;
     }
     .mainSlideItem {
         height: 560px;
@@ -391,6 +391,12 @@
     .desktop {
         width: calc(100% - 550px);
         margin-bottom: 20px;
+    }
+    .thumbItem p {
+        font-size: 18px;
+    }
+    .thumbItem img {
+        height: 155px;
     }
 }
 @media (max-width: 1250px) {
