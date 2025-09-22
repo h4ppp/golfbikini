@@ -394,6 +394,10 @@
     }
     .thumbItem p {
         font-size: 18px;
+        height: 70px;
+    }
+    .thumbItem::before {
+        height: 90px;
     }
     .thumbItem img {
         height: 155px;
