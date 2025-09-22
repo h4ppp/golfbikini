@@ -110,7 +110,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 110%;
+    width: 112%;
     height: 100%;
     background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
     backdrop-filter: blur(3px);
@@ -366,10 +366,10 @@
     }
     .mainItemWrapper {
         padding: 40px 120px 40px 40px;
-        width: 500px;
+        width: 550px;
     }
     .mainItemWrapper::before {
-        width: 110%;
+        width: 115%;
         top: auto;
         bottom: 0;
         height: 115%;
@@ -383,7 +383,7 @@
     .description {
         font-size: 18px;
         line-height: 24px;
-        width: 350px;
+        width: 400px;
     }
     .title {
         font-size: 90px;
