@@ -71,10 +71,10 @@ export default function Footer() {
                             {homePage?.acf?.email}
                         </a>
                         {renderSocials()}
-                        <a href="#" className={styles.page}>
+                        <a href="/policy.pdf" target="_blank" className={styles.page}>
                             Privacy Policy
                         </a>
-                        <a href="#" className={styles.page}>
+                        <a href="/terms.pdf" target="_blank" className={styles.page}>
                             Terms of Service
                         </a>
                     </div>

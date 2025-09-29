@@ -81,6 +81,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.4s;
+}
+.eventAfter:hover {
+    opacity: 0.8;
 }
 .eventAfter img {
     display: block;

@@ -10,6 +10,7 @@ import "swiper/css";
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import styles from "../styles/FavoriteVideos.module.css";
+import VimeoCustomPlayer from "@/components/VimeoCustomPlayer";
 
 SwiperCore.use([]);
 
@@ -155,14 +156,7 @@ export default function FavoriteVideos() {
                         return (
                             <SwiperSlide key={video.id} className={styles.mainSlide}>
                                 {playingVideoId === video.id ? (
-                                    <video
-                                        src={video.acf.video}
-                                        controls
-                                        autoPlay
-                                        className={styles.videoPlayer}
-                                        width="100%"
-                                        height="100%"
-                                    />
+                                    <div dangerouslySetInnerHTML={{ __html: video.acf.video }} />
                                 ) : null}
                                 <div className={styles.mainSlideItem}>
                                     <img

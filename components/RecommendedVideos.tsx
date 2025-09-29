@@ -122,7 +122,7 @@ export default function RecommendedVideos({
 
                         return (
                             <SwiperSlide key={video.id} className={styles.recSlide}>
-                                {playingVideoId === video.id ? (
+                                {/*{playingVideoId === video.id ? (
                                     <video
                                         src={video.acf.video}
                                         controls
@@ -131,6 +131,10 @@ export default function RecommendedVideos({
                                         width="100%"
                                         height="100%"
                                     />
+                                ) : null}*/}
+
+                                {playingVideoId === video.id ? (
+                                    <div dangerouslySetInnerHTML={{ __html: video.acf.video }} />
                                 ) : null}
 
                                 <div className={styles.recSliderItem}>

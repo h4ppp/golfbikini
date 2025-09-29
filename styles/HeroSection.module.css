@@ -166,10 +166,23 @@
         padding-bottom: 120px;
     }
     .item {
-        width: 520px;
+        width: 480px;
     }
     .block {
         width: 380px;
+    }
+    .images img {
+        width: 120px;
+        height: 120px;
+        min-width: 120px;
+    }
+    .itemText {
+        font-size: 16px;
+    }
+    .itemArrow {
+        width: 80px;
+        height: 80px;
+        background-size: 80px;
     }
 }
 
