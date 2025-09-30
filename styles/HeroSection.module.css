@@ -163,7 +163,8 @@
         line-height: 90px;
     }
     .section {
-        padding-bottom: 120px;
+        padding-bottom: 136px;
+        margin-top: 20px;
     }
     .item {
         width: 480px;
@@ -190,6 +191,9 @@
     .block {
         width: 100%;
         order: 0;
+    }
+    .section {
+        margin-top: 20px;
     }
     .list {
         flex-wrap: wrap;

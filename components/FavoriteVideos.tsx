@@ -10,7 +10,7 @@ import "swiper/css";
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import styles from "../styles/FavoriteVideos.module.css";
-import VimeoCustomPlayer from "@/components/VimeoCustomPlayer";
+//import VimeoCustomPlayer from "@/components/VimeoCustomPlayer";
 
 SwiperCore.use([]);
 
@@ -147,6 +147,7 @@ export default function FavoriteVideos() {
                     spaceBetween={10}
                     loop={false}
                     navigation
+                    speed={0}
                     thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
                     className={styles.mainSlider}
                     onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}>
@@ -185,7 +186,9 @@ export default function FavoriteVideos() {
                                         className={`${styles.btnFavorite} ${
                                             isFavorite ? styles.active : ""
                                         } ${isLoading ? styles.disabled : ""}`}
-                                        onClick={() => toggleFavorite(video.id)}></div>
+                                        onClick={() => {
+                                            setPlayingVideoId(video.id);
+                                        }}></div>
                                 </div>
                             </SwiperSlide>
                         );
