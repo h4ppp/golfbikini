@@ -312,6 +312,9 @@ input.custom__input {
 .logout::before {
     background-image: url(/img/header-btn.svg);
 }
+.logout img {
+    transition: all 0.4s;
+}
 .logout {
     width: 206px;
     height: 54px;
@@ -321,6 +324,9 @@ input.custom__input {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.logout:hover img {
+    transform: translateX(-3px) rotate(180deg);
 }
 
 .logout img {

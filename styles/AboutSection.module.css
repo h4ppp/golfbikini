@@ -61,7 +61,13 @@
 
 @media (max-width: 1800px) {
     .img {
-        left: -70px;
+        left: 0px;
+    }
+    .item {
+        font-size: 22px;
+    }
+    .wrapper {
+        width: 1080px;
     }
 }
 @media (max-width: 1580px) {
@@ -140,11 +146,16 @@
     }
     .text {
         width: 280px;
-        font-size: 10px;
+        font-size: 9px;
         line-height: 120%;
         letter-spacing: 0;
         font-weight: normal;
         margin: 12px 0 0 0;
+    }
+    .img {
+        width: 762px;
+        max-height: 420px;
+        top: -7px;
     }
 }
 @media (max-width: 576px) {

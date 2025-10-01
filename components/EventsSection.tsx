@@ -61,7 +61,7 @@ export default function EventsSection() {
                         768: {
                             slidesPerView: 2,
                         },
-                        1251: {
+                        1581: {
                             slidesPerView: 3,
                         },
                     }}>

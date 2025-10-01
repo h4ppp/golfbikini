@@ -126,7 +126,7 @@
 .eventBold {
     color: #fff;
     font-family: "Akira", sans-serif;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 800;
     line-height: normal;
     position: relative;
@@ -136,7 +136,7 @@
 .eventText {
     margin-top: 8px;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     line-height: 120%;
     position: relative;
@@ -170,6 +170,14 @@
     line-height: 120%;
 }
 
+@media (max-width: 1251px) {
+    .eventBold {
+        min-height: 51px;
+    }
+    .eventText {
+        min-height: 100px;
+    }
+}
 @media (max-width: 1800px) {
     .arrow {
         width: 380px;
