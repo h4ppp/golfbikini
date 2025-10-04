@@ -157,8 +157,18 @@ export default function FavoriteVideos() {
                         return (
                             <SwiperSlide key={video.id} className={styles.mainSlide}>
                                 {playingVideoId === video.id ? (
-                                    <div dangerouslySetInnerHTML={{ __html: video.acf.video }} />
+                                    <video
+                                        src={video.acf.video}
+                                        controls
+                                        autoPlay
+                                        className={styles.videoPlayer}
+                                        width="100%"
+                                        height="100%"
+                                    />
                                 ) : null}
+                                {/*{playingVideoId === video.id ? (
+                                    <div dangerouslySetInnerHTML={{ __html: video.acf.video }} />
+                                ) : null}*/}
                                 <div className={styles.mainSlideItem}>
                                     <img
                                         src={video.acf.bg}

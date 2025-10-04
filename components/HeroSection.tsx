@@ -19,8 +19,6 @@ export default function FAQSection() {
         { href: homePage?.acf?.youtube, icon: "/img/main-soc-4.svg", alt: "youtube" },
     ];
 
-    console.log(process.env.NEXT_PUBLIC_SITE_URL);
-
     return (
         <section className={styles.section}>
             <div className="container index">

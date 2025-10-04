@@ -202,7 +202,7 @@
     animation: pulse 1.5s infinite;
     animation-play-state: paused;
 }
-.playButton:hover {
+.mainSlideItem:hover .playButton {
     /*opacity: 0.7;*/
     animation-play-state: running;
 }

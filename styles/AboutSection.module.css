@@ -113,7 +113,7 @@
         max-height: 100%;
     }
     .title {
-        font-size: 36px;
+        font-size: 32px;
         letter-spacing: 3.6px;
         line-height: normal;
         margin-bottom: 12px;
@@ -132,17 +132,17 @@
     }
     .itemText {
         margin: 0;
-        font-size: 10px;
+        font-size: 9px;
         line-height: 110%;
         letter-spacing: 0;
     }
     .item img {
         margin: 0 8px 0 0;
-        width: 32px;
-        height: 32px;
+        width: 26px;
+        height: 26px;
     }
     .about {
-        padding: 50px 0 70px;
+        padding: 60px 0 70px;
     }
     .text {
         width: 280px;
@@ -154,15 +154,12 @@
     }
     .img {
         width: 762px;
-        max-height: 420px;
+        max-height: 380px;
         top: -7px;
     }
 }
 @media (max-width: 576px) {
     .img {
         left: -330px;
-    }
-    .about {
-        padding: 40px 0 70px;
     }
 }
