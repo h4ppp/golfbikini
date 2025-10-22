@@ -17,9 +17,11 @@ export default function HomePage() {
             <Header />
             <HeroSection />
             <FavoriteVideos />
-            <FormSection />
-            <AboutSection />
-            <EventsSection />
+            <div className="home-overflow">
+                <FormSection />
+                <AboutSection />
+                <EventsSection />
+            </div>
             <FAQSection />
             <Footer />
         </>

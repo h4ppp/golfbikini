@@ -315,6 +315,10 @@ input.custom__input {
 .logout img {
     transition: all 0.4s;
 }
+.home-overflow {
+    position: relative;
+    overflow: hidden;
+}
 .logout {
     width: 206px;
     height: 54px;

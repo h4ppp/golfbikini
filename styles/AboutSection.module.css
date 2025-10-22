@@ -156,6 +156,10 @@
         width: 762px;
         max-height: 380px;
         top: -7px;
+        height: auto;
+    }
+    .about {
+        overflow: visible;
     }
 }
 @media (max-width: 576px) {
