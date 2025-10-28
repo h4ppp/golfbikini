@@ -17,17 +17,26 @@ export default function ForgotPasswordPage() {
         setError("");
         setSuccess("");
 
-        if (!email) {
+        if (!email.trim()) {
             setError("Please enter your email.");
             return;
         }
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/forgot-password.php`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
-            });
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_SITE_URL}/api/forgot-password.php`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email }),
+                }
+            );
+
+            // Проверяем корректность ответа
+            if (!res.ok) {
+                setError("Server error. Please try later.");
+                return;
+            }
 
             const data = await res.json();
 
@@ -38,7 +47,8 @@ export default function ForgotPasswordPage() {
                 setError(data.message || "Something went wrong. Try again.");
             }
         } catch (err) {
-            setError("Server error. Please try later.");
+            console.error("Forgot password error:", err);
+            setError("Server connection error. Please try later.");
         }
     };
 
@@ -49,6 +59,7 @@ export default function ForgotPasswordPage() {
                     <Link href="/" className={styles.logo}>
                         <Image src="/img/logo.svg" alt="Logo" width={177} height={68} />
                     </Link>
+
                     <h1 className={styles.title}>FORGOT YOUR PASSWORD?</h1>
                     <p className={styles.subtitle}>
                         Don't worry, it happens to the best of us. <br />
@@ -64,6 +75,7 @@ export default function ForgotPasswordPage() {
                                     placeholder="Your best contact email*"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    required
                                 />
                             </div>
                         </div>
@@ -78,7 +90,8 @@ export default function ForgotPasswordPage() {
 
                         <div className="center">
                             <div className="form-link">
-                                Remember your password? <Link href="/sign-in">Sign In</Link>
+                                Remember your password?{" "}
+                                <Link href="/sign-in">Sign In</Link>
                             </div>
                         </div>
                     </form>
