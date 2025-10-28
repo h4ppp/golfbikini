@@ -70,7 +70,9 @@ export default function FavoriteVideos() {
         setFavorites((prev) =>
             prev.includes(videoId) ? prev.filter((id) => id !== videoId) : [...prev, videoId],
         );
+
         setLoadingIds((prev) => [...prev, videoId]);
+
         try {
             const res = await fetch("/api/favorites", {
                 method: "POST",
@@ -78,16 +80,24 @@ export default function FavoriteVideos() {
                 body: JSON.stringify({ videoId }),
                 credentials: "include",
             });
+
             if (res.status === 401) {
                 router.push("/sign-in");
                 return;
             }
+
+            const data = await res.json();
+            if (!res.ok) {
+                console.error("toggleFavorite failed:", data.error || res.statusText);
+            }
         } catch (err) {
             console.error("toggleFavorite error:", err);
         } finally {
+            // Убираем ID из загрузки
             setLoadingIds((prev) => prev.filter((id) => id !== videoId));
         }
     };
+
 
     return (
         <section className={styles.section}>
@@ -193,12 +203,11 @@ export default function FavoriteVideos() {
                                         </div>
                                     </div>
                                     <div
-                                        className={`${styles.btnFavorite} ${
-                                            isFavorite ? styles.active : ""
-                                        } ${isLoading ? styles.disabled : ""}`}
-                                        onClick={() => {
-                                            setPlayingVideoId(video.id);
-                                        }}></div>
+                                        className={`${styles.btnFavorite} ${isFavorite ? styles.active : ""} ${
+                                            isLoading ? styles.disabled : ""
+                                        }`}
+                                        onClick={() => toggleFavorite(video.id)}
+                                    ></div>
                                 </div>
                             </SwiperSlide>
                         );

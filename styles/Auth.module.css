@@ -222,6 +222,18 @@
     background: linear-gradient(270deg, #fff 27.59%, rgba(255, 255, 255, 0) 100%);
 }
 
+@media (max-width: 1800px) {
+    .accountBlock {
+        padding-right: 24px;
+        margin-right: 24px;
+    }
+    .btnPopup {
+        right: 24px;
+    }
+    .accountBlock {
+        width: 25%;
+    }
+}
 @media (max-width: 1580px) {
     .btnPopup {
         right: 24px;
@@ -232,6 +244,20 @@
     }
     .accountBlock:first-child {
         flex-grow: 0;
+    }
+    .accountText {
+        font-size: 15px;
+        line-height: 120%;
+    }
+    .accountItemTitle {
+        font-size: 14px;
+    }
+    .accountBlock {
+        padding-right: 12px;
+        margin-right: 12px;
+    }
+    .btnPopup {
+        right: 12px;
     }
 }
 
