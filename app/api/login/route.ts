@@ -27,17 +27,16 @@ export async function POST(req: NextRequest) {
         const token = signToken({ id: user.id, email: user.email });
         console.log("TOKEN GENERATED:", token);
 
-        // --- 4. Создаём ответ и устанавливаем cookie ---
+        // --- 4. Создаём ответ ---
         const res = NextResponse.json(
-            { message: "Logged in successfully", token },
+            { message: "Logged in successfully" },
             { status: 200 }
         );
 
-        res.cookies.set({
-            name: "token",
-            value: token,
+        // --- 5. Устанавливаем cookie ---
+        res.cookies.set("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production", // Только HTTPS в проде
+            secure: process.env.NODE_ENV === "production", // обязательно для Vercel
             sameSite: "lax",
             path: "/",
             maxAge: 60 * 60 * 24 * 7, // 7 дней
