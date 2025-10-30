@@ -78,25 +78,45 @@ export default function AccountPage() {
 
     const handlePasswordSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         if (passwordForm.newPassword !== passwordForm.confirmPassword) {
             setMessage("New passwords do not match");
             return;
         }
 
-        const res = await fetch("/api/profile/change-password", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(passwordForm),
-        });
-        const result = await res.json();
-        if (res.ok) {
-            setMessage("Password changed successfully!");
-            setShowChangePassword(false);
-            setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
-        } else {
-            setMessage(result.error || "Failed to change password");
+        try {
+            const res = await fetch("/api/profile/change-password", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(passwordForm),
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+                setMessage("Password changed successfully!");
+                setShowChangePassword(false); // ✅ закрываем окно
+                setPasswordForm({
+                    currentPassword: "",
+                    newPassword: "",
+                    confirmPassword: "",
+                });
+
+                // можно обновить профиль, если нужно
+                const profileRes = await fetch("/api/profile");
+                if (profileRes.ok) {
+                    const updated = await profileRes.json();
+                    setData(updated);
+                }
+            } else {
+                setMessage(result.error || "Failed to change password");
+            }
+        } catch (err) {
+            console.error(err);
+            setMessage("Something went wrong");
         }
     };
+
 
     const favoriteVideoIds = useMemo(() => {
         if (!data?.favorite_videos) return [];
@@ -293,8 +313,7 @@ export default function AccountPage() {
                                             </div>
                                         </div>
 
-                                        <button type="submit" className="btn btn-modal"
-                                            onClick={() => setShowChangePassword(false)}>
+                                        <button type="submit" className="btn btn-modal">
                                             Update password
                                         </button>
                                         <button
