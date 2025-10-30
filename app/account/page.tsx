@@ -293,13 +293,14 @@ export default function AccountPage() {
                                             </div>
                                         </div>
 
-                                        <button type="submit" className="btn btn-modal">
-                                            Update name
+                                        <button type="submit" className="btn btn-modal"
+                                            onClick={() => setShowChangePassword(false)}>
+                                            Update password
                                         </button>
                                         <button
                                             className="btn btn-red"
                                             onClick={() => setShowChangePassword(false)}>
-                                            RESET PASSWORD
+                                            Cancel
                                         </button>
                                     </form>
                                 </div>
