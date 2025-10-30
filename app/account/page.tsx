@@ -115,6 +115,8 @@ export default function AccountPage() {
             console.error(err);
             setMessage("Something went wrong");
         }
+
+        setShowChangePassword(false);
     };
 
 
