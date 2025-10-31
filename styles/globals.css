@@ -22,6 +22,9 @@ main {
     font-style: normal;
     font-display: swap;
 }
+.pt {
+    padding-top: 60px;
+}
 body {
     color: #060606;
     font-family: "League Spartan", sans-serif;

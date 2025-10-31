@@ -121,19 +121,35 @@ export default function AccountPage() {
 
 
     const favoriteVideoIds = useMemo(() => {
-        if (!data?.favorite_videos) return [];
-        try {
-            const parsed = JSON.parse(data.favorite_videos);
-            if (Array.isArray(parsed)) return parsed.map((id) => Number(id));
-            if (!isNaN(Number(parsed))) return [Number(parsed)];
-            return [];
-        } catch {
-            return data.favorite_videos
-                .split(",")
-                .map((id) => Number(id.trim()))
-                .filter(Boolean);
+        const fav = data?.favorite_videos;
+
+        if (!fav) return [];
+
+        if (Array.isArray(fav)) {
+            return fav.map((id) => Number(id)).filter(Boolean);
         }
+
+        if (typeof fav === "number") {
+            return [fav];
+        }
+
+        if (typeof fav === "string") {
+            try {
+                const parsed = JSON.parse(fav);
+                if (Array.isArray(parsed)) {
+                    return parsed.map((id) => Number(id)).filter(Boolean);
+                }
+            } catch {
+                return fav
+                    .split(",")
+                    .map((id) => Number(id.trim()))
+                    .filter(Boolean);
+            }
+        }
+
+        return [];
     }, [data?.favorite_videos]);
+
 
     const name = data?.first_name || "";
 
@@ -333,12 +349,14 @@ export default function AccountPage() {
                     {message && <div className="success">{message}</div>}
                 </div>
             </section>
-            {data && (
+            {data && favoriteVideoIds.length > 0 ? (
                 <RecommendedVideos
                     favoriteMode={true}
                     sectionTitle="Favorite Videos"
                     favoriteVideos={favoriteVideoIds}
                 />
+            ) : (
+                <div className="pt"></div>
             )}
             <div className={styles.accountBottom}>
                 <div className="container">
