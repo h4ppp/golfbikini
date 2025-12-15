@@ -181,7 +181,7 @@ input.custom__input {
     resize: none;
 }
 .input-wrapper input::placeholder,
-.input-wrapper textarea::placeholder .input-wrapper select {
+.input-wrapper select {
     color: #535353;
 }
 .input.m0 {
